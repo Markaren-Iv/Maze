@@ -2,13 +2,13 @@ import pygame
 import math
 
 pi = math.pi
+angles_outer = [pi/2, (9/10)*pi, (13/10)*pi, (17/10)*pi, (21/10)*pi]
 
 def Create_Star(screen, color, star_x, star_y):
 
     radius_outer = 7
     radius_inner = 14
 
-    angles_outer = [pi/2, (9/10)*pi, (13/10)*pi, (17/10)*pi, (21/10)*pi]
     angles_inner = [(7/10)*pi, (11/10)*pi, (3/2)*pi, (19/10)*pi, (23/10)*pi]
 
     points = []
@@ -23,3 +23,7 @@ def Create_Star(screen, color, star_x, star_y):
     
     pygame.draw.polygon(screen, color, points)
 
+def Star_Rect(star_x, star_y, radius_outer = 14):
+    left = star_x - radius_outer
+    top = star_y - radius_outer
+    return pygame.Rect(left, top, radius_outer, radius_outer)

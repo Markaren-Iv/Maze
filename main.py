@@ -1,7 +1,7 @@
 import pygame
 
 from algoritms import movement
-from objects import Create_Star
+from objects import Create_Star, Star_Rect
 
 
 # Initialize Pygame
@@ -65,13 +65,16 @@ while running:
             running = False
 
     player = pygame.Rect(player_x, player_y, player_width, player_height)
+    star_rect = Star_Rect(star_x, star_y)
 
     player = movement(player,player_speed,screen, walls)
 
     player_x, player_y = player.x, player.y
     
+    if player.colliderect(star_rect):
+            running = False
     screen.blit(maze_surface, (0,0))
-
+ 
     for i in range(len(walls)):
         pygame.draw.rect(screen, GREY, walls[i])    
     
