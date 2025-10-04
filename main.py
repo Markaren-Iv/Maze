@@ -10,7 +10,8 @@ pygame.init()
 # Window size
 WIDTH, HEIGHT = 400, 400
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("White playerangle Example")
+
+font = pygame.font.Font(None, 30)
 
 # Colors
 WHITE = (255, 255, 255)
@@ -45,6 +46,8 @@ star_x = 60
 star_y = 60
 
 walls = []
+
+won = False
 screen.fill(BLACK)
 #Maze builing
 for i, row in enumerate(maze):
@@ -60,6 +63,7 @@ maze_surface = screen.copy() #copies the screen for later use
 # Game loop
 running = True
 while running:
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -72,13 +76,20 @@ while running:
     player_x, player_y = player.x, player.y
     
     if player.colliderect(star_rect):
-            running = False
+            won = True
+    
     screen.blit(maze_surface, (0,0))
  
     for i in range(len(walls)):
         pygame.draw.rect(screen, GREY, walls[i])    
     
     pygame.draw.rect(screen, BLUE, player)
+
+    if won:
+        text = font.render("You Won!", True, (255, 255, 255))
+        text_rect = text.get_rect(center =  (WIDTH/2,HEIGHT/2))
+        pygame.draw.rect(screen, (0, 0, 0), text_rect.inflate(40, 40))
+        screen.blit(text, text_rect)
 
  # Update the display
     pygame.display.flip()
